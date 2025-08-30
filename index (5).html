@@ -1,0 +1,313 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CarVoyage CI — Location & Voyages en Côte d'Ivoire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f0f10;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#f4c542;
+      --text:#111111;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:#f7f7f9;
+      color:var(--text);
+      line-height:1.6;
+    }
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:rgba(17,17,17,.9);
+      backdrop-filter:saturate(140%) blur(6px);
+      color:#fff;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 22px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px;
+      color:var(--accent);
+    }
+    .logo svg{width:28px; height:28px}
+    nav a{
+      color:#e5e7eb; text-decoration:none; margin:0 10px; font-weight:500; font-size:.95rem;
+    }
+    nav a:hover{color:#fff}
+    /* Hero */
+    .hero{
+      position:relative; min-height:58vh; display:grid; place-items:center; color:#fff;
+      background:#000 url('https://images.pexels.com/photos/3763611/pexels-photo-3763611.jpeg?auto=compress&cs=tinysrgb&w=1600') center/cover no-repeat;
+    }
+    .hero::after{
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,.55));
+    }
+    .hero-inner{position:relative; z-index:1; text-align:center; padding:20px}
+    .hero h1{font-size: clamp(1.8rem, 3vw, 3rem); margin:0 0 8px}
+    .hero p{margin:0 0 24px; color:#e5e7eb}
+    /* Booking card */
+    .booking{
+      width:min(980px, 94vw);
+      margin:-60px auto 24px;
+      background:var(--card);
+      border-radius:18px;
+      box-shadow:0 12px 30px rgba(0,0,0,.12);
+      padding:18px;
+    }
+    form.booking-grid{
+      display:grid; grid-template-columns: repeat(6, 1fr);
+      gap:12px;
+    }
+    .field{display:flex; flex-direction:column; gap:6px}
+    label{font-size:.8rem; color:var(--muted)}
+    input, select{
+      padding:12px 12px; border:1px solid #e5e7eb; border-radius:10px; font-size:.95rem; outline:none;
+    }
+    input:focus, select:focus{border-color:#c6a219; box-shadow:0 0 0 3px rgba(244,197,66,.15)}
+    .btn{
+      appearance:none; border:none; cursor:pointer;
+      background:var(--accent); color:#111; font-weight:700; border-radius:12px; padding:12px 14px;
+      transition:transform .04s ease, box-shadow .2s ease;
+    }
+    .btn:hover{box-shadow:0 8px 20px rgba(244,197,66,.25)}
+    .btn:active{transform:translateY(1px)}
+    @media (max-width: 980px){
+      form.booking-grid{grid-template-columns: 1fr 1fr}
+    }
+    @media (max-width: 560px){
+      form.booking-grid{grid-template-columns: 1fr}
+    }
+    /* Section cars */
+    .section{
+      width:min(1160px, 94vw);
+      margin:34px auto;
+    }
+    .section h2{
+      margin:0 0 14px; font-size: clamp(1.3rem, 1.5vw, 1.8rem);
+    }
+    .grid{
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:18px;
+    }
+    .card{
+      background:#fff; border-radius:16px; overflow:hidden;
+      box-shadow:0 10px 22px rgba(0,0,0,.08); transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .card:hover{transform:translateY(-4px); box-shadow:0 16px 30px rgba(0,0,0,.12)}
+    .card img{width:100%; height:180px; object-fit:cover}
+    .card-body{padding:14px 14px 16px}
+    .car-title{display:flex; align-items:center; justify-content:space-between}
+    .price{font-weight:700; color:#111}
+    .muted{color:var(--muted); font-size:.9rem}
+    .cta{
+      margin-top:10px; display:flex; gap:8px; align-items:center; justify-content:space-between;
+    }
+    .whatsapp{
+      display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+      background:#25D366; color:#fff; padding:10px 12px; border-radius:10px; font-weight:700;
+    }
+    .whatsapp:hover{filter:brightness(1.05)}
+    /* Footer */
+    footer{
+      margin-top:34px; background:#111; color:#e5e7eb; text-align:center; padding:18px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" aria-label="CarVoyage CI logo">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 11h14l-1.5-3.5a2 2 0 0 0-1.84-1.22H8.34a2 2 0 0 0-1.84 1.22L5 11zm15 0a3 3 0 0 1 3 3v3h-2a2 2 0 1 1-4 0H7a2 2 0 1 1-4 0H1v-3a3 3 0 0 1 3-3h16zM6 17a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm14 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0z"/></svg>
+      <span>CarVoyage&nbsp;CI</span>
+    </div>
+    <nav>
+      <a href="#voitures">Voitures</a>
+      <a href="#reserver">Réserver</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" role="img" aria-label="Car on a scenic road">
+    <div class="hero-inner">
+      <h1>Partez en voyage en toute sérénité</h1>
+      <p>Location premium en Côte d'Ivoire — Abidjan, Yamoussoukro, Bouaké et +</p>
+    </div>
+  </section>
+
+  <section id="reserver" class="booking" aria-label="Formulaire de réservation rapide">
+    <form id="bookingForm" class="booking-grid">
+      <div class="field">
+        <label for="depart">Ville de départ</label>
+        <input id="depart" name="depart" placeholder="Ex : Abidjan" required />
+      </div>
+      <div class="field">
+        <label for="destination">Destination</label>
+        <input id="destination" name="destination" placeholder="Ex : Yamoussoukro" required />
+      </div>
+      <div class="field">
+        <label for="dateDepart">Date de départ</label>
+        <input id="dateDepart" name="dateDepart" type="date" required />
+      </div>
+      <div class="field">
+        <label for="dateRetour">Date de retour</label>
+        <input id="dateRetour" name="dateRetour" type="date" required />
+      </div>
+      <div class="field">
+        <label for="modele">Modèle</label>
+        <select id="modele" name="modele" required>
+          <option value="">Choisir un modèle</option>
+          <option>Range Rover Sport</option>
+          <option>Toyota Prado</option>
+          <option>Toyota Land Cruiser V8</option>
+          <option>Mercedes GLE</option>
+          <option>Tesla Model 3</option>
+          <option>Tesla Cybertruck</option>
+          <option>Toyota Hilux</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="nom">Votre nom</label>
+        <input id="nom" name="nom" placeholder="Nom & prénom" required />
+      </div>
+      <button class="btn" type="submit" title="Continuer sur WhatsApp">Réserver sur WhatsApp</button>
+    </form>
+  </section>
+
+  <section id="voitures" class="section">
+    <h2>Nos modèles disponibles</h2>
+    <div class="grid">
+      <article class="card">
+        <img src="https://cdn.motor1.com/images/mgl/0ANlo/s1/2023-range-rover-sport.jpg" alt="Range Rover Sport noir sur route" />
+        <div class="card-body">
+          <div class="car-title">
+            <strong>Range Rover Sport</strong>
+            <span class="price">80 000 FCFA / jour</span>
+          </div>
+          <p class="muted">SUV luxe • 5 places • Auto</p>
+          <div class="cta">
+            <a class="whatsapp" href="https://wa.me/2250102030405?text=Je%20veux%20réserver%20un%20Range%20Rover%20Sport">WhatsApp</a>
+            <span class="muted">Disponible Abidjan</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://www.toyota.ci/wp-content/uploads/2020/06/prado.jpg" alt="Toyota Land Cruiser Prado blanc" />
+        <div class="card-body">
+          <div class="car-title">
+            <strong>Toyota Prado</strong>
+            <span class="price">45 000 FCFA / jour</span>
+          </div>
+          <p class="muted">4x4 • 7 places • Auto</p>
+          <div class="cta">
+            <a class="whatsapp" href="https://wa.me/2250102030405?text=Je%20veux%20réserver%20un%20Toyota%20Prado">WhatsApp</a>
+            <span class="muted">Disponible Abidjan</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://cdn.carsguide.com.au/sites/default/files/2021-toyota-landcruiser-300-vx-suv-white-1200x800-%281%29.jpg" alt="Toyota Land Cruiser V8 blanc" />
+        <div class="card-body">
+          <div class="car-title">
+            <strong>Land Cruiser V8</strong>
+            <span class="price">60 000 FCFA / jour</span>
+          </div>
+          <p class="muted">V8 • 7 places • 4x4</p>
+          <div class="cta">
+            <a class="whatsapp" href="https://wa.me/2250102030405?text=Je%20veux%20réserver%20un%20Land%20Cruiser%20V8">WhatsApp</a>
+            <span class="muted">Disponible Abidjan</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://www.mercedes-benz.com.eg/content/dam/hq/passenger-cars/cars/gle/suv-v167-fl-pi/model-overview/09-2023/images/gle-suv-v167-fl-pi-modeloverview-696x392-09-2023.jpg" alt="Mercedes GLE gris" />
+        <div class="card-body">
+          <div class="car-title">
+            <strong>Mercedes GLE</strong>
+            <span class="price">70 000 FCFA / jour</span>
+          </div>
+          <p class="muted">SUV premium • Auto</p>
+          <div class="cta">
+            <a class="whatsapp" href="https://wa.me/2250102030405?text=Je%20veux%20réserver%20un%20Mercedes%20GLE">WhatsApp</a>
+            <span class="muted">Disponible Abidjan</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://tesla-cdn.thron.com/delivery/public/image/tesla/761d3e6c-144e-48eb-8f9a-42d63580c860/bvlatuR/std/1200x628/ms-main-hero-desktop" alt="Tesla Model 3 rouge" />
+        <div class="card-body">
+          <div class="car-title">
+            <strong>Tesla Model 3</strong>
+            <span class="price">100 000 FCFA / jour</span>
+          </div>
+          <p class="muted">Électrique • Autopilot</p>
+          <div class="cta">
+            <a class="whatsapp" href="https://wa.me/2250102030405?text=Je%20veux%20réserver%20une%20Tesla%20Model%203">WhatsApp</a>
+            <span class="muted">Disponible Abidjan</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://cdn.motor1.com/images/mgl/9qq2z/s1/tesla-cybertruck.jpg" alt="Tesla Cybertruck gris acier" />
+        <div class="card-body">
+          <div class="car-title">
+            <strong>Tesla Cybertruck</strong>
+            <span class="price">120 000 FCFA / jour</span>
+          </div>
+          <p class="muted">Électrique • 6 places</p>
+          <div class="cta">
+            <a class="whatsapp" href="https://wa.me/2250102030405?text=Je%20veux%20réserver%20un%20Cybertruck">WhatsApp</a>
+            <span class="muted">Disponible Abidjan</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="https://www.toyota.com/imgix/content/dam/toyota/jellies/max/2022/hilux/hlxhero.jpg" alt="Toyota Hilux blanc double cabine" />
+        <div class="card-body">
+          <div class="car-title">
+            <strong>Toyota Hilux</strong>
+            <span class="price">40 000 FCFA / jour</span>
+          </div>
+          <p class="muted">Pick-up • 5 places • 4x4</p>
+          <div class="cta">
+            <a class="whatsapp" href="https://wa.me/2250102030405?text=Je%20veux%20réserver%20un%20Hilux">WhatsApp</a>
+            <span class="muted">Disponible Abidjan</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <p>&copy; 2025 CarVoyage CI — WhatsApp: +225 01 02 03 04 05</p>
+  </footer>
+
+  <script>
+    // Envoi vers WhatsApp depuis le formulaire de réservation
+    document.getElementById('bookingForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const depart = document.getElementById('depart').value.trim();
+      const destination = document.getElementById('destination').value.trim();
+      const d1 = document.getElementById('dateDepart').value;
+      const d2 = document.getElementById('dateRetour').value;
+      const modele = document.getElementById('modele').value;
+      const nom = document.getElementById('nom').value.trim();
+
+      const msg = `Bonjour, je suis ${nom}. Je souhaite louer une ${modele} pour un voyage de ${depart} à ${destination}, du ${d1} au ${d2}.`;
+      const url = `https://wa.me/2250102030405?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    });
+  </script>
+</body>
+</html>
